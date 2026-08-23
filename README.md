@@ -1,37 +1,46 @@
-🍉 FruityMeet
+# 🍉 FruityMeet
 
-A high-performance, real-time random video and text chat platform built with WebRTC, Node.js, and Redis. Inspired by classic platforms, FruityMeet modernizes the random chat experience with responsive design, collapsible UI elements, and strict security protocols.
+![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
+![WebRTC](https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=webrtc&logoColor=white)
 
-Live Demo: fruitymeet.onrender.com
+> A high-performance, real-time random video and text chat platform built with WebRTC, Node.js, and Redis. Inspired by classic platforms, FruityMeet modernizes the random chat experience with responsive design, collapsible UI elements, and strict security protocols.
 
-Core Features
-Intelligent Matchmaking: Utilizes a bipartite cross-queueing algorithm in Redis to instantly pair users based on exact seeking preferences.
+🔴 **Live Demo:** [fruitymeet.onrender.com](https://fruitymeet.onrender.com)
 
-WebRTC Streaming: Low-latency, peer-to-peer audio and video data channels with STUN/TURN fallback for robust NAT traversal.
+---
 
-Ephemeral Media Sharing: Real-time Base64 image sharing via WebSockets with a full-screen lightbox modal, ensuring zero database storage liability.
+## ✨ Core Features
 
-Server-Side Geolocation: Secure IP verification using proxy-aware headers to accurately display regional country badges.
+* **🧠 Intelligent Matchmaking:** Utilizes a bipartite cross-queueing algorithm in Redis to instantly pair users based on exact seeking preferences (e.g., matching Female seeking Male strictly with Male seeking Female).
+* **📹 WebRTC Streaming:** Low-latency, peer-to-peer audio and video data channels with STUN/TURN fallback for robust NAT traversal.
+* **🖼️ Ephemeral Media Sharing:** Real-time Base64 image sharing via WebSockets featuring a full-screen lightbox modal, ensuring zero database storage liability.
+* **🌍 Server-Side Geolocation:** Secure IP verification using proxy-aware headers to accurately dynamically resolve and display regional country badges.
 
-Tech Stack
-Frontend: Vanilla JavaScript (ES6+), HTML5, CSS3 with a custom dark-mode glassmorphism aesthetic.
+---
 
-Backend: Node.js runtime environment utilizing Express.js for web serving and API routing.
+## 🛠️ Technology Stack
 
-Real-Time & State: Socket.io for continuous WebRTC signaling, paired with a Redis in-memory datastore for the queueing engine.
+| Category | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Frontend UI** | HTML5, CSS3, Vanilla JS | Glassmorphism dark-mode UI, Flexbox/Grid layouts, DOM manipulation. |
+| **Media Streaming** | WebRTC API | Direct P2P audio/video data channels (`RTCPeerConnection`). |
+| **Backend API** | Node.js / Express.js | Event-driven server runtime, static asset serving, and proxy handling. |
+| **Real-Time** | Socket.io | WebRTC signaling handshakes, room creation, and Base64 image transfers. |
+| **Database** | Redis | High-speed, in-memory datastore managing dynamic matchmaking queues. |
 
-Infrastructure: Production-ready deployment hosted on Render with secure HTTPS and dynamically provisioned ports.
+---
 
-Local Installation
-Clone this repository to your local machine and execute npm install to download required dependencies.
+## 🚀 Local Installation
 
-Create a .env file in the root directory containing your specific PORT and local or cloud REDIS_URL.
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/sujalarse/fruitymeet.git](https://github.com/sujalarse/fruitymeet.git)
+   cd fruitymeet
+# 🔒 Architecture & Security Note
+FruityMeet is meticulously designed with ephemeral data handling in mind. Absolutely no chat logs, video stream packets, or shared images are written to a persistent database.
 
-Ensure a local Redis server instance is actively running on port 6379.
+When a user disconnects, the WebSocket immediately triggers a comprehensive teardown event, clearing the remote video frame, resetting the UI, and purging their session ID from the active Redis matchmaking pools.
 
-Execute node index.js (or npm start) and navigate to localhost:3000 in your secure browser.
-
-Architecture Note
-FruityMeet is meticulously designed with ephemeral data handling in mind. Absolutely no chat logs, video stream packets, or shared images are written to a persistent database. When a user disconnects, the WebSocket immediately triggers a comprehensive teardown event, clearing the remote video frame, resetting the UI, and purging their session ID from the active Redis matchmaking pools.
-
-Created by Sujal.
+Created by Sujal
