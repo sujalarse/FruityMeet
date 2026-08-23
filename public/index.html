@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FruityMeet - WebRTC Matchmaking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <h1 class="splash-logo">FruityMeet</h1>
+            <p class="splash-subtitle">Set your preferences to find the perfect match.</p>
+
+            <div class="form-group">
+                <label>I identify as:</label>
+                <select id="genderSelect" class="splash-select">
+                    <option value="" disabled selected>Select Your Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Interests (tags):</label>
+                <div class="interests-container" id="interestsContainer">
+                    <div class="tags-wrapper" id="tagsWrapper">
+                        <input type="text" id="interestInput" placeholder="Type and press Enter or Comma...">
+                    </div>
+                </div>
+            </div>
+
+            <button id="startChattingBtn" class="btn btn-splash">Start Chatting</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <h1 class="logo">FruityMeet</h1>
+            <div id="statusIndicator" class="status-indicator">
+                <span class="dot"></span>
+                <span id="statusText">Disconnected</span>
+            </div>
+        </header>
+
+        <main class="video-container">
+            <div class="video-wrapper local">
+                <!-- Local video MUST be muted to prevent audio feedback -->
+                <video id="localVideo" autoplay playsinline muted></video>
+                <div class="camera-off-placeholder" id="localCameraOff" style="display: none;">
+                    <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" class="camera-off-icon">
+                        <path
+                            d="M2 2l20 20M15 15l2.293 2.293c.63.63 1.707.184 1.707-.707V7.414c0-.89-1.077-1.337-1.707-.707L15 9M2 7v10c0 1.1.9 2 2 2h10M4 5h8">
+                        </path>
+                    </svg>
+                    <span>Camera Off</span>
+                </div>
+                <div class="video-label">You</div>
+                <div id="localCountryBadge" class="country-badge" style="display: none;"></div>
+
+                <!-- Chat Overlay -->
+                <div class="chat-overlay collapsed" id="chatOverlay">
+                    <button id="chatToggleBtn" class="chat-toggle-btn">💬<span id="unreadDot" class="unread-dot"
+                            style="display: none;"></span></button>
+                    <div id="chatContent" class="chat-content">
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Messages will go here -->
+                        </div>
+                        <form class="chat-input-container" id="chatForm">
+                            <button type="button" id="imageUploadBtn" class="image-upload-btn"
+                                title="Send Image">📎</button>
+                            <input type="file" id="imageInput" accept="image/jpeg, image/png, image/webp"
+                                style="display: none;">
+                            <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off">
+                            <button type="submit" class="btn btn-primary send-btn">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="video-wrapper remote">
+                <video id="remoteVideo" autoplay playsinline></video>
+                <div class="camera-off-placeholder" id="remoteCameraOff">
+                    <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" class="camera-off-icon">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Camera Off</span>
+                </div>
+                <div class="video-label">Stranger</div>
+                <div id="remoteCountryBadge" class="country-badge" style="display: none;"></div>
+
+                <div id="loadingOverlay" class="loading-overlay active">
+                    <div class="spinner"></div>
+                    <p id="overlayText">Click Start to find a match</p>
+                </div>
+            </div>
+        </main>
+
+        <div class="controls">
+            <select id="groupSelect" class="group-select">
+                <option value="General">Male</option>
+                <option value="Group A">Female</option>
+                <option value="Group B">Others</option>
+            </select>
+            <label class="text-only-label">
+                <input type="checkbox" id="textOnlyCheckbox"> Text Only
+            </label>
+            <button id="nextBtn" class="btn btn-primary" disabled>Start</button>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="imageModal" class="image-modal">
+        <span id="closeImageModal" class="close-modal">&times;</span>
+        <img id="modalImage" class="modal-content" src="" alt="Full Screen Image">
+    </div>
+
+    <!-- Include Socket.io client -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
